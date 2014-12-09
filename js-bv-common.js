@@ -311,8 +311,8 @@ function low16 (val) {
 }
 
 
-// Bai bin half closed half open record interval calculator.
-// Returns a vector, [interval, k, l, sl, ol], where
+// Bin half closed half open record interval calculator.  Returns a
+// vector, [interval, k, l, sl, ol], where
 //
 // * interval is the half closed half open record interval
 // * k is the corresponding binid covering the interval
