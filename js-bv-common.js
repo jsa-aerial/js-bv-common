@@ -43,7 +43,7 @@
 // * boend is the offset of last byte in that block
 function bin2Ranges (indexReader, ref, binid) {
     var res = [];
-    var bs = indexReader.tabixContent.indexseq[ref].binseq;
+    var bs = indexReader.idxContent.indexseq[ref].binseq;
     var cnkseq = bs[indexReader.bhash[ref][binid]].chunkseq;
 
     for (var i = 0; i < cnkseq.length; i++) {
@@ -58,15 +58,15 @@ function bin2Ranges (indexReader, ref, binid) {
 
 
 // First chunk region of binid.
-function bin2Beg (binid) {
-    var range = bin2Range(binid);
+function bin2Beg (indexReader, ref, binid) {
+    var range = bin2Ranges(indexReader, ref, binid);
     return range[0];
 };
 
 
 // Last chunk region of binid.
-function bin2End (binid) {
-    var range = bin2Range(binid);
+function bin2End (indexReader, ref, binid) {
+    var range = bin2Ranges(indexReader, ref, binid);
     return range[range.length-1];
 };
 
@@ -75,6 +75,7 @@ function bin2End (binid) {
 // chunks of all bins involved as a _flat_ vector of two element
 // vectors, each defining a region of a bin.
 function getChunks (indexReader, ref, beg, end) {
+
     var bids = reg2bins(beg, end+1).filter(
         function(x){
             return (indexReader.bhash[ref][x] != undefined);
